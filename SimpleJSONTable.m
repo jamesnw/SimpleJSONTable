@@ -90,7 +90,13 @@
 	cell.detailTextLabel.numberOfLines = 0;
 	cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	
-	cell.accessory = UITableViewCellAccessoryDisclosure;
+	id accessoryID = [row objectForKey:@"accessory"];
+	if(accessoryID == nil){
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	} else {
+		cell.accessoryType = [self accessoryFromString:(NSString *)accessoryID];
+	}
+	
     return cell;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -185,5 +191,15 @@
 		[self.tableView deselectRowAtIndexPath:selection animated:YES];
 	}
 	
+}
+
+#pragma mark Helper Functions
+- (NSUInteger) accessoryFromString: (NSString*) s{
+	NSArray *enumArray =  @[@"UITableViewCellAccessoryNone", @"UITableViewCellAccessoryDisclosureIndicator", @"UITableViewCellAccessoryDetailDisclosureButton", @"UITableViewCellAccessoryCheckmark"];
+    NSUInteger n = [enumArray indexOfObject:s];
+    if ( n == NSNotFound ) {
+        n = 0;
+    }
+    return n;
 }
 @end
