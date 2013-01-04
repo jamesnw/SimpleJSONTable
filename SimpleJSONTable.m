@@ -90,7 +90,7 @@
 	cell.detailTextLabel.numberOfLines = 0;
 	cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	
-    
+	cell.accessory = UITableViewCellAccessoryDisclosure;
     return cell;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
