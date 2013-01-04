@@ -90,12 +90,18 @@
 	cell.detailTextLabel.numberOfLines = 0;
 	cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	
+	//Set Accessory
 	id accessoryID = [row objectForKey:@"accessory"];
 	if(accessoryID == nil){
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	} else {
 		cell.accessoryType = [self accessoryFromString:(NSString *)accessoryID];
 	}
+	
+	//Disable user interaction if no action
+	id actionID = [row objectForKey:@"action"];
+	if(actionID == nil)
+		cell.userInteractionEnabled = NO;
 	
     return cell;
 }
