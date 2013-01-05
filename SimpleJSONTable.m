@@ -30,7 +30,11 @@
 		NSError *error;
 		NSString *textPath = [[NSBundle mainBundle] pathForResource:file ofType:@"json"];
 		NSData *data = [NSData dataWithContentsOfFile:textPath options:NSDataReadingMapped error:&error];
+		if(error != nil)
+			NSLog(@"Error: %@", error);
 		_data = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+		if(error != nil)
+			NSLog(@"Error: %@", error);
 		_delegate = delegate;
     }
     return self;
