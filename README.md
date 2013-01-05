@@ -46,3 +46,6 @@ You will need to add an action to your delegate's interface and implementation. 
 ###Height
 ````{"height":30,}````
 Default is 44
+
+##Notes
+You can override any of the methods in SimpleJSONTable by calling it from your delegate.
