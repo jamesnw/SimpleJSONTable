@@ -193,8 +193,12 @@
 	NSDictionary *row = [rows objectAtIndex:indexPath.row];
 	NSString *actionName = [row objectForKey:@"action"];
 	SEL selector = sel_registerName([actionName cStringUsingEncoding:NSStringEncodingConversionExternalRepresentation]);
-	if([_delegate respondsToSelector:selector])
+	if([_delegate respondsToSelector:selector]){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		[_delegate performSelector:selector];
+#pragma clang diagnostic pop
+		}
 	
 	NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
 	if (selection){
