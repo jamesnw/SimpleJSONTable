@@ -123,7 +123,29 @@
 	CGFloat height;
 	if (heightID == nil) {
 		height = 44;
-	} else {
+	} else if([(NSString *)heightID isEqualToString:@"auto"]){
+		
+		CGSize labelsize,detailsize;
+		CGFloat labelWidth = self.view.frame.size.width-40;
+		NSDictionary *section = [_data objectAtIndex:indexPath.section];
+		NSArray *rows = [section objectForKey:@"rows"];
+		NSDictionary *row = [rows objectAtIndex:indexPath.row];
+		
+		UILabel * textDesc1 = [[UILabel alloc] init];
+		[textDesc1 setNumberOfLines:0];
+		textDesc1.text=[row objectForKey:@"text"];
+		[textDesc1 setFont:[UIFont fontWithName:@"Helvetica" size:15.0]];
+		labelsize=[textDesc1.text sizeWithFont:textDesc1.font constrainedToSize:CGSizeMake(labelWidth, 2000.0) lineBreakMode:NSLineBreakByWordWrapping];
+		
+		UILabel * textDesc2 = [[UILabel alloc] init];
+		[textDesc2 setNumberOfLines:0];
+		textDesc2.text=[row objectForKey:@"detailText"];
+		[textDesc2 setFont:[UIFont fontWithName:@"Helvetica" size:14.0]];
+		detailsize=[textDesc2.text sizeWithFont:textDesc2.font constrainedToSize:CGSizeMake(labelWidth, 2000.0) lineBreakMode:NSLineBreakByWordWrapping];
+		
+		height = labelsize.height + detailsize.height +20;
+	}
+	else {
 		height = [heightID floatValue];
 	}
 	return height;
